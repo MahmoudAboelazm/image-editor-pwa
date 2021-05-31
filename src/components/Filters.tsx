@@ -1,6 +1,15 @@
 import React from "react";
-const f = () => console.log("filter1");
-const filters = [{ name: "Filter1", funcFilter: f }];
+import {
+  filterOne,
+  filterThree,
+  filterTwo,
+} from "../filters/filters/customeFilters";
+
+const filters = [
+  { name: "Filter1", funcFilter: filterOne },
+  { name: "Filter2", funcFilter: filterTwo },
+  { name: "Filter3", funcFilter: filterThree },
+];
 const Filters = () => {
   return (
     <div>

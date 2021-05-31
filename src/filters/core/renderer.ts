@@ -68,6 +68,11 @@ class Renderer {
   applyFilter() {
     return applyCurrentFilter(Renderer.pixelData);
   }
+
+  cancelFilter() {
+    const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+    return showEditImage(canvas.toDataURL("image/png", 1.0));
+  }
 }
 
 export default Renderer;
