@@ -66,10 +66,14 @@ class Renderer {
   }
   // This to apply the current filter data to the original canvas
   applyFilter() {
-    return applyCurrentFilter(Renderer.pixelData);
+    if (!Renderer.pixelData) return;
+    applyCurrentFilter(Renderer.pixelData);
+    return (Renderer.pixelData = null);
   }
 
   cancelFilter() {
+    if (!Renderer.pixelData) return;
+    Renderer.pixelData = null;
     const canvas = document.getElementById("canvas") as HTMLCanvasElement;
     return showEditImage(canvas.toDataURL("image/png", 1.0));
   }

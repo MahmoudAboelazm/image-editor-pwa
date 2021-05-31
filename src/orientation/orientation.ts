@@ -1,23 +1,24 @@
 import { showEditImage } from "../utils/showEditImage";
-
+let dataPixels: ImageData;
 export const flip = (axis) => {
-  const image = document.getElementById("edit-image") as HTMLImageElement,
+  const originalCanvas = document.getElementById("canvas") as HTMLCanvasElement,
     canvas = document.createElement("canvas"),
     ctx = canvas.getContext("2d");
   //ctx.save();
-  canvas.width = image.width;
-  canvas.height = image.height;
+  canvas.width = originalCanvas.width;
+  canvas.height = originalCanvas.height;
 
   if (axis === "x") {
-    ctx.translate(image.width, 0);
+    ctx.translate(originalCanvas.width, 0);
     ctx.scale(-1, 1);
-  } else {
-    ctx.translate(0, image.height);
+  } else if (axis === "y") {
+    ctx.translate(0, originalCanvas.height);
     ctx.scale(1, -1);
   }
 
-  ctx.drawImage(image, 0, 0);
-  return (image.src = canvas.toDataURL("image/jpeg"));
+  ctx.drawImage(originalCanvas, 0, 0);
+  dataPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  return showEditImage(canvas.toDataURL());
 };
 
 export const rotate = (degree) => {
@@ -59,18 +60,20 @@ export const rotate = (degree) => {
       context.drawImage(originalCanvas, -originalCanvas.width, 0);
       break;
   }
-
+  dataPixels = context.getImageData(0, 0, canvas.width, canvas.height);
   return showEditImage(canvas.toDataURL());
 };
 export const applyOrientation = () => {
-  const image = document.getElementById("edit-image") as HTMLImageElement,
-    originalCanvas = document.getElementById("canvas") as HTMLCanvasElement;
-
-  originalCanvas.width = image.width;
-  originalCanvas.height = image.height;
-  return originalCanvas.getContext("2d").drawImage(image, 0, 0);
+  if (!dataPixels) return;
+  const originalCanvas = document.getElementById("canvas") as HTMLCanvasElement;
+  originalCanvas.width = dataPixels.width;
+  originalCanvas.height = dataPixels.height;
+  originalCanvas.getContext("2d").putImageData(dataPixels, 0, 0);
+  return (dataPixels = null);
 };
 export const cancelOrientation = () => {
+  if (!dataPixels) return;
+  dataPixels = null;
   const originalCanvas = document.getElementById("canvas") as HTMLCanvasElement;
   return showEditImage(originalCanvas.toDataURL());
 };

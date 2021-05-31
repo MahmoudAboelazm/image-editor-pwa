@@ -2,11 +2,11 @@ module.exports = {
   plugins: [require("daisyui")],
   important: true,
   theme: {
-    maxWidth: {
-      "1/4": "20%",
-      "1/2": "50%",
-      "3/4": "75%",
-    },
+    // maxWidth: {
+    //   "1/4": "20%",
+    //   "1/2": "50%",
+    //   "3/4": "75%",
+    // },
   },
   mode: "jit",
   purge: {

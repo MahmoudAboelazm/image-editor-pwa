@@ -80,7 +80,7 @@ const Drawer = () => {
           </li>
         </ul>
         {editorName && (
-          <div className="mb-0.5 shadow-xl lg:ml-0.5 absolute bg-base-100 lg:left-full lg:top-0 lg:bottom-auto bottom-full lg:w-48 w-full text-center">
+          <div className="mb-0.5 z-50	 shadow-xl lg:ml-0.5 absolute bg-base-100 lg:left-full lg:top-0 lg:bottom-auto bottom-full lg:w-48 w-full text-center">
             <button onClick={apply}>Apply</button>{" "}
             <button onClick={cancel}>Cancel</button>
             {currentEditor(editorName)}

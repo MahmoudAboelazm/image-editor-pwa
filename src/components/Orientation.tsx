@@ -3,6 +3,20 @@ import { flip, rotate } from "../orientation/orientation";
 
 const Orientation = () => {
   const [degree, setDegree] = useState(0);
+  const [flipAxis, setFlipAxis] = useState("");
+
+  const makeFlip = (axis) => {
+    if (flipAxis === "x" && axis === "x") {
+      setFlipAxis("x-1");
+      return flip("x-1");
+    }
+    if (flipAxis === "y" && axis === "y") {
+      setFlipAxis("y-1");
+      return flip("y-1");
+    }
+    setFlipAxis(axis);
+    return flip(axis);
+  };
   const makeRotateForward = () => {
     if (degree + 90 === 360) {
       setDegree(0);
@@ -23,10 +37,10 @@ const Orientation = () => {
     <div>
       Orientation
       <div>
-        <button onClick={() => flip("y")}>flibY</button>
+        <button onClick={() => makeFlip("y")}>flibY</button>
       </div>
       <div>
-        <button onClick={() => flip("x")}>flibX</button>
+        <button onClick={() => makeFlip("x")}>flibX</button>
       </div>
       <div>
         <button onClick={makeRotateForward}>Rotate Forward</button>
