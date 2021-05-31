@@ -1,12 +1,12 @@
 import React from "react";
 import Drawer from "./Drawer";
-import Edit from "./Edit";
+import Editor from "./Editor";
 
 const MainSection = () => {
   return (
-    <main className="rounded-lg shadow bg-base-200 drawer drawer-mobile h-52 min-h-screen	">
-      <Edit />
+    <main className="bg-base-200 items-center	flex h-52 min-h-screen	">
       <Drawer />
+      <Editor />
     </main>
   );
 };

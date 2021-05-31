@@ -1,7 +1,12 @@
 import { useTheme } from "next-themes";
-import React from "react";
-import { applyAdjust } from "../adjust/applyAdjust";
+import React, { useState } from "react";
+import { applyAdjust, cancelAdjust } from "../adjust/applyAdjust";
 import { getImage } from "../utils/getImage";
+import Adjust from "./Adjust";
+import Effects from "./Effects";
+import Filters from "./Filters";
+import Orientation from "./Orientation";
+import Picker from "./Picker";
 const themes = [
   "synthwave",
   "dracula",
@@ -10,102 +15,61 @@ const themes = [
   "dark",
   "forest",
 ];
+const list = ["ADJUST", "FILTERS", "EFFECTS", "ORIENTATION", "PICKER"];
+const currentEditor = (name) => {
+  switch (name) {
+    case "ADJUST":
+      return <Adjust />;
+    case "FILTERS":
+      return <Filters />;
+    case "EFFECTS":
+      return <Effects />;
+    case "ORIENTATION":
+      return <Orientation />;
+    case "PICKER":
+      return <Picker />;
+    default:
+      return "Unknown";
+  }
+};
 const Drawer = () => {
   const { theme, setTheme } = useTheme();
-
+  const [editorName, setEditorName] = useState("");
+  const cancel = () => {
+    if (editorName === "ADJUST") {
+      cancelAdjust();
+    }
+    return setEditorName("");
+  };
+  const apply = () => {
+    if (editorName === "ADJUST") {
+      applyAdjust();
+    }
+    return setEditorName("");
+  };
   return (
-    <aside className="drawer-side">
-      <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-      <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
-        <li className="mb-1">
-          <div className="collapse w-96 rounded-box border border-base-300 collapse-arrow w-full ">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium ">Adjust</div>
-            <div className="collapse-content">
-              <input
-                type="range"
-                id="vol"
-                name="vol"
-                min="-100"
-                max="100"
-                onChange={(e) => applyAdjust(e.target.value)}
-              />
-            </div>
+    <aside className="lg:h-full  lg:relative lg:w-auto w-full  absolute bottom-0">
+      {/* {editorName && <div className="layer absolute w-full h-full z-10"></div>} */}
+
+      <div className="bg-base-100 h-full relative ">
+        <ul className="menu overflow-auto text-base-content lg:flex-col	 flex-row flex ">
+          {list.map((l) => (
+            <li key={l} className="lg:mb-1">
+              <a onClick={() => setEditorName(l)}>{l}</a>
+            </li>
+          ))}
+          <li>
+            <input type="file" id="file" onChange={getImage} />
+          </li>
+        </ul>
+        {editorName && (
+          <div className="mb-0.5 shadow-xl lg:ml-0.5 absolute bg-base-100 lg:left-full lg:top-0 lg:bottom-auto bottom-full lg:w-48 w-full text-center">
+            <button onClick={apply}>Apply</button>{" "}
+            <button onClick={cancel}>Cancel</button>
+            {currentEditor(editorName)}
           </div>
-        </li>
-        <li className="mb-1">
-          <div className="collapse w-96 rounded-box border border-base-300 collapse-arrow w-full ">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium ">Effects</div>
-            <div className="collapse-content">
-              <p>Collapse content reveals with focus. If you add a checkbox.</p>
-            </div>
-          </div>
-        </li>
-        <li className="mb-1">
-          <div className="collapse w-96 rounded-box border border-base-300 collapse-arrow w-full ">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium ">Filters</div>
-            <div className="collapse-content">
-              <p>Collapse content reveals with focus. If you add a checkbox.</p>
-            </div>
-          </div>
-        </li>
-        <li className="mb-1">
-          <div className="collapse w-96 rounded-box border border-base-300 collapse-arrow w-full ">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium ">
-              Orientaion
-            </div>
-            <div className="collapse-content">
-              <p>Collapse content reveals with focus. If you add a checkbox.</p>
-            </div>
-          </div>
-        </li>
-        <li className="mb-1">
-          <div className="collapse w-96 rounded-box border border-base-300 collapse-arrow w-full ">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium ">Crop</div>
-            <div className="collapse-content">
-              <p>Collapse content reveals with focus. If you add a checkbox.</p>
-            </div>
-          </div>
-        </li>
-        <li className="mb-1">
-          <div className="collapse w-96 rounded-box border border-base-300 collapse-arrow w-full ">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium ">
-              Image Colors
-            </div>
-            <div className="collapse-content">
-              <p>Collapse content reveals with focus. If you add a checkbox.</p>
-            </div>
-          </div>
-        </li>
-        <li>
-          <a>
-            <input id="file" type="file" accept="image/*" onChange={getImage} />
-          </a>
-        </li>
-        <li>
-          <a>
-            <div className="dropdown w-full">
-              <button tabIndex={0} className="btn btn-primary w-full">
-                Change theme
-              </button>
-              <ul className=" menu dropdown-content w-full p-0">
-                {themes.map((t) => (
-                  <li key={t} onClick={() => setTheme(t)}>
-                    <button className="btn w-full rounded-none mt-1	">
-                      {t}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </a>
-        </li>
-      </ul>
+        )}
+      </div>
     </aside>
   );
 };

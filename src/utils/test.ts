@@ -223,3 +223,30 @@ function getImageTiles(image: HTMLImageElement) {
   return getTiles();
 }
 export { getImageTiles };
+// const filterTest = () => {
+//   sendCanvasDataToRenderer();
+//   //console.log(Mou.version);
+//   // (Mou.prototype as any).fillColor(105, 200, 205);
+//   (Mou.prototype as any).channels({
+//     blue: 8,
+//     red: 3,
+//   });
+//   (Mou.prototype as any).gamma(1.6);
+//   // (Mou.prototype as any).sepia(20);
+//   // (Mou.prototype as any).contrast(15);
+//   (Mou.prototype as any).vibrance(75);
+//   (Mou.prototype as any).saturation(-35);
+//   // (Mou.prototype as any).brightness(5);
+//   //(Mou.prototype as any).exposure(8);
+//   (Mou.prototype as any).clip(8);
+//   // (Mou.prototype as any).curves(
+//   //   "rgb",
+//   //   [0, 0],
+//   //   [120, 100],
+//   //   [128, 140],
+//   //   [255, 255],
+//   // );
+
+//   //(Mou.prototype as any).colorize("#c42007", 30);
+//   return Mou.renderer.processNext();
+// };
