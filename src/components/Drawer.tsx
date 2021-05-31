@@ -1,6 +1,10 @@
 import { useTheme } from "next-themes";
 import React, { useState } from "react";
 import { applyAdjust, cancelAdjust } from "../adjust/applyAdjust";
+import {
+  applyOrientation,
+  cancelOrientation,
+} from "../orientation/orientation";
 
 import { getImage } from "../utils/getImage";
 import Adjust from "./Adjust";
@@ -43,6 +47,9 @@ const Drawer = () => {
     if (editorName === "FILTERS") {
       window.Caman.renderer.cancelFilter();
     }
+    if (editorName === "ORIENTATION") {
+      cancelOrientation();
+    }
     return setEditorName("");
   };
   const apply = () => {
@@ -51,6 +58,9 @@ const Drawer = () => {
     }
     if (editorName === "FILTERS") {
       window.Caman.renderer.applyFilter();
+    }
+    if (editorName === "ORIENTATION") {
+      applyOrientation();
     }
     return setEditorName("");
   };
