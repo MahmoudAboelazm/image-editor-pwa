@@ -1,4 +1,3 @@
-import Mou from "../filters";
 import { showEditImage } from "./showEditImage";
 
 export const getImage = () => {
@@ -19,8 +18,7 @@ export const getImage = () => {
       canvas.height = img.height;
 
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      showEditImage(canvas.toDataURL("image/png", 1.0));
-      const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      showEditImage(canvas.toDataURL("image/jpeg", 1.0));
     };
   };
 };

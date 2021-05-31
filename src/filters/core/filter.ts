@@ -13,7 +13,7 @@ class Filter {
   // @param [String] name The name of the filter.
   // @param [Function] filterFunc The filter function.
   static register(name, filterFunc) {
-    return (window.Mou.prototype[name] = filterFunc);
+    return (window.Caman.prototype[name] = filterFunc);
   }
 }
 

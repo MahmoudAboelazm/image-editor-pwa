@@ -1,5 +1,3 @@
-import Mou from "..";
-
 class Calculate {
   // Calculates the distance between two points.
 

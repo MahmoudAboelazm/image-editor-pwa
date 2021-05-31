@@ -1,9 +1,10 @@
-import Mou from "..";
+import Caman from "../core";
 import Filter from "../core/filter";
+
 export function mainFiltersIntializing() {
-  window.Mou = Mou || {};
-  Mou.Filter = Filter;
-  Mou.Filter.register("brightness", function (adjust) {
+  window.Caman = Caman || {};
+  Caman.Filter = Filter;
+  Caman.Filter.register("brightness", function (adjust) {
     adjust = Math.floor(255 * (adjust / 100));
     return this.process("brightness", function (rgba) {
       rgba.r += adjust;
@@ -12,7 +13,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("saturation", function (adjust) {
+  Caman.Filter.register("saturation", function (adjust) {
     adjust *= -0.01;
     return this.process("saturation", function (rgba) {
       var max;
@@ -29,7 +30,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("vibrance", function (adjust) {
+  Caman.Filter.register("vibrance", function (adjust) {
     adjust *= -1;
     return this.process("vibrance", function (rgba) {
       var amt, avg, max;
@@ -48,7 +49,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("contrast", function (adjust) {
+  Caman.Filter.register("contrast", function (adjust) {
     adjust = Math.pow((adjust + 100) / 100, 2);
     return this.process("contrast", function (rgba) {
       rgba.r /= 255;
@@ -69,7 +70,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("invert", function () {
+  Caman.Filter.register("invert", function () {
     return this.process("invert", function (rgba) {
       rgba.r = 255 - rgba.r;
       rgba.g = 255 - rgba.g;
@@ -77,7 +78,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("fillColor", function (a) {
+  Caman.Filter.register("fillColor", function (a) {
     var color;
 
     color = {
@@ -94,7 +95,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("channels", function (options) {
+  Caman.Filter.register("channels", function (options) {
     var chan, value;
     if (typeof options !== "object") {
       return this;
@@ -136,7 +137,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("gamma", function (adjust) {
+  Caman.Filter.register("gamma", function (adjust) {
     return this.process("gamma", function (rgba) {
       rgba.r = Math.pow(rgba.r / 255, adjust) * 255;
       rgba.g = Math.pow(rgba.g / 255, adjust) * 255;
@@ -144,7 +145,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("sepia", function (adjust) {
+  Caman.Filter.register("sepia", function (adjust) {
     if (adjust == null) {
       adjust = 100;
     }
@@ -171,28 +172,28 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("noise", function (adjust) {
+  Caman.Filter.register("noise", function (adjust) {
     adjust = Math.abs(adjust) * 2.55;
     return this.process("noise", function (rgba) {
       var rand;
-      rand = Mou.Calculate.randomRange(adjust * -1, adjust, false);
+      rand = Caman.Calculate.randomRange(adjust * -1, adjust, false);
       rgba.r += rand;
       rgba.g += rand;
       rgba.b += rand;
       return rgba;
     });
   });
-  Mou.Filter.register("greyscale", function (adjust) {
+  Caman.Filter.register("greyscale", function (adjust) {
     return this.process("greyscale", function (rgba) {
       var avg;
-      avg = Mou.Calculate.luminance(rgba);
+      avg = Caman.Calculate.luminance(rgba);
       rgba.r = avg;
       rgba.g = avg;
       rgba.b = avg;
       return rgba;
     });
   });
-  Mou.Filter.register("invert", function () {
+  Caman.Filter.register("invert", function () {
     return this.process("invert", function (rgba) {
       rgba.r = 255 - rgba.r;
       rgba.g = 255 - rgba.g;
@@ -200,7 +201,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("clip", function (adjust) {
+  Caman.Filter.register("clip", function (adjust) {
     adjust = Math.abs(adjust) * 2.55;
     return this.process("clip", function (rgba) {
       if (rgba.r > 255 - adjust) {
@@ -221,7 +222,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("curves", function () {
+  Caman.Filter.register("curves", function () {
     var algo, bezier, chans, cps, end, i, last, start, _i, _j, _ref, _ref1;
     (chans = arguments[0]),
       (cps = 2 <= arguments.length ? [].slice.call(arguments, 1) : []);
@@ -230,10 +231,10 @@ export function mainFiltersIntializing() {
       algo = last;
       cps.pop();
     } else if (typeof last === "string") {
-      algo = Mou.Calculate[last];
+      algo = Caman.Calculate[last];
       cps.pop();
     } else {
-      algo = Mou.Calculate.bezier;
+      algo = Caman.Calculate.bezier;
     }
     if (typeof chans === "string") {
       chans = chans.split("");
@@ -277,10 +278,10 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("colorize", function () {
+  Caman.Filter.register("colorize", function () {
     var level, rgb;
     if (arguments.length === 2) {
-      rgb = Mou.Convert.hexToRGB(arguments[0]);
+      rgb = Caman.Convert.hexToRGB(arguments[0]);
       level = arguments[1];
     } else if (arguments.length === 4) {
       rgb = {
@@ -297,16 +298,16 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("hue", function (adjust) {
+  Caman.Filter.register("hue", function (adjust) {
     return this.process("hue", function (rgba) {
       var b, g, h, hsv, r, _ref;
-      hsv = Mou.Convert.rgbToHSV(rgba.r, rgba.g, rgba.b);
+      hsv = Caman.Convert.rgbToHSV(rgba.r, rgba.g, rgba.b);
       h = hsv.h * 100;
       h += Math.abs(adjust);
       h = h % 100;
       h /= 100;
       hsv.h = h;
-      (_ref = Mou.Convert.hsvToRGB(hsv.h, hsv.s, hsv.v)),
+      (_ref = Caman.Convert.hsvToRGB(hsv.h, hsv.s, hsv.v)),
         (r = _ref.r),
         (g = _ref.g),
         (b = _ref.b);
@@ -316,7 +317,7 @@ export function mainFiltersIntializing() {
       return rgba;
     });
   });
-  Mou.Filter.register("exposure", function (adjust) {
+  Caman.Filter.register("exposure", function (adjust) {
     var ctrl1, ctrl2, p;
     p = Math.abs(adjust) / 100;
     ctrl1 = [0, 255 * p];

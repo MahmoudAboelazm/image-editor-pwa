@@ -1,4 +1,4 @@
-import { applyCurrentFilter } from "../../utils/applyCurrentFilter";
+import { applyCurrentFilter } from "./utils/applyCurrentFilter";
 import { showEditImage } from "../../utils/showEditImage";
 
 class Renderer {

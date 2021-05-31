@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes";
 import React, { useState } from "react";
 import { applyAdjust, cancelAdjust } from "../adjust/applyAdjust";
-import Mou from "../filters";
+
 import { getImage } from "../utils/getImage";
 import Adjust from "./Adjust";
 import Effects from "./Effects";
@@ -41,7 +41,7 @@ const Drawer = () => {
       cancelAdjust();
     }
     if (editorName === "FILTERS") {
-      Mou.renderer.cancelFilter();
+      window.Caman.renderer.cancelFilter();
     }
     return setEditorName("");
   };
@@ -50,7 +50,7 @@ const Drawer = () => {
       applyAdjust();
     }
     if (editorName === "FILTERS") {
-      Mou.renderer.applyFilter();
+      window.Caman.renderer.applyFilter();
     }
     return setEditorName("");
   };
