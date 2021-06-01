@@ -6,7 +6,7 @@ const Editor = () => {
   }, []);
   return (
     <>
-      <section className="flex justify-center items-center	overflow-hidden	w-full h-full">
+      <section className="flex justify-center items-center	overflow-hidden	w-full h-full lg:pb-0 pb-12	">
         <div className="text-center p-2 h-full flex items-center">
           <div>
             <canvas className="hidden" id="canvas" height="1" width="1" />

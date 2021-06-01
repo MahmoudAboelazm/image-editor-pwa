@@ -1,10 +1,11 @@
 import { showEditImage } from "../utils/showEditImage";
+
 let dataPixels: ImageData;
+
 export const flip = (axis) => {
   const originalCanvas = document.getElementById("canvas") as HTMLCanvasElement,
     canvas = document.createElement("canvas"),
     ctx = canvas.getContext("2d");
-  //ctx.save();
   canvas.width = originalCanvas.width;
   canvas.height = originalCanvas.height;
 
@@ -63,6 +64,7 @@ export const rotate = (degree) => {
   dataPixels = context.getImageData(0, 0, canvas.width, canvas.height);
   return showEditImage(canvas.toDataURL());
 };
+
 export const applyOrientation = () => {
   if (!dataPixels) return;
   const originalCanvas = document.getElementById("canvas") as HTMLCanvasElement;
