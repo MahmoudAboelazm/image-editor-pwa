@@ -1,12 +1,13 @@
 import "tailwindcss/tailwind.css";
 import Head from "next/head";
 import "../styles/globals.css";
+import "../styles/style.css";
 import { ThemeProvider } from "next-themes";
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <ThemeProvider attribute="data-theme" defaultTheme="halloween">
+      <ThemeProvider attribute="data-theme" defaultTheme="dracula">
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -16,7 +17,7 @@ export default function MyApp({ Component, pageProps }) {
           />
           <meta name="description" content="Description" />
           <meta name="keywords" content="Keywords" />
-          <title>Next.js PWA Example</title>
+          <title>Image Editor PWA</title>
 
           <link rel="manifest" href="/manifest.json" />
 

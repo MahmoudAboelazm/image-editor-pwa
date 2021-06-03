@@ -1,5 +1,6 @@
 import { applyCurrentFilter } from "./utils/applyCurrentFilter";
 import { showEditImage } from "../../utils/showEditImage";
+import { showLoading } from "../../utils/showLoading";
 
 class Renderer {
   currentJob: any;
@@ -25,6 +26,7 @@ class Renderer {
     return Renderer.renderQueue.push(job);
   }
   showFilter() {
+    showLoading();
     const canvas = document.createElement("canvas"),
       context = canvas.getContext("2d");
     canvas.height = Renderer.pixelData.height;
@@ -64,7 +66,7 @@ class Renderer {
     }
     return this.processNext();
   }
-  // This to apply the current filter data to the original canvas
+  // Apply the current filter data to the original canvas
   applyFilter() {
     if (!Renderer.pixelData) return;
     applyCurrentFilter(Renderer.pixelData);

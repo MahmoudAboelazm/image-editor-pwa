@@ -19,7 +19,11 @@ export const adjustEditor = ({
 }: adjustEditorProps) => {
   const img = document.getElementById("edit-image") as HTMLImageElement;
 
-  return (img.style.filter = `contrast(${contrast}) sepia(${sepia}) brightness(${brightness}) hue-rotate(${hueRotate}deg) grayscale(${grayscale}) saturate(${saturate})`);
+  return (img.style.filter = `contrast(${contrast / 50}) sepia(${
+    sepia / 50
+  }) brightness(${brightness / 50}) hue-rotate(${hueRotate}deg) grayscale(${
+    grayscale / 50
+  }) saturate(${saturate / 50})`);
 };
 export const applyAdjust = () => {
   const canvas = document.getElementById("canvas") as HTMLCanvasElement,

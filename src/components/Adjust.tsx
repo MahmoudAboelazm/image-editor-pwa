@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { adjustEditor, adjustEditorProps } from "../adjust/applyAdjust";
 
 const adjustNames = [
@@ -12,36 +12,44 @@ const adjustNames = [
 
 const Adjust = () => {
   const [adjustValues, setAjustValues] = useState<adjustEditorProps>({
-    contrast: 1,
+    contrast: 50,
     sepia: 0,
-    brightness: 1,
+    brightness: 50,
     hueRotate: 0,
     grayscale: 0,
-    saturate: 1,
+    saturate: 50,
   });
   const makeAdjust = (name, value) => {
-    const newValues = adjustValues;
-    if (name == "hueRotate") {
-      newValues[name] = value / 2;
-    } else {
-      newValues[name] = value / 50;
-    }
-    adjustEditor(newValues);
-
-    return setAjustValues(newValues);
+    adjustEditor({ ...adjustValues, [name]: value });
+    return setAjustValues({ ...adjustValues, [name]: value });
   };
+  useEffect(() => {
+    let inputs = document.getElementsByClassName("range");
+    for (const input of inputs as any) {
+      let value = Math.abs(
+        ((input.value - input.max) / (input.min - input.max)) * 100,
+      );
+      input.style.background = `linear-gradient(to left, #0000 0%, #0000 ${value}%,  #0000 ${value}%, black ${value}%)`;
+    }
+  }, [adjustValues]);
   return (
     <div>
       {adjustNames.map((a) => (
-        <div key={a}>
-          <p>{a.toUpperCase()}</p>
+        <div className="mt-5" key={a}>
+          <div className="flex justify-between	content-center -mb-1.5">
+            <span className="stat-title">
+              {a.slice(0, 1).toUpperCase() + a.slice(1)}
+            </span>
+            <span className="stat-desc">{adjustValues[a]}</span>
+          </div>
           <input
             type="range"
             id={a}
             name={a}
             min={0}
             max={100}
-            className="appearance-none h-1 bg-base-200 cursor-pointer"
+            value={adjustValues[a]}
+            className={`${a} range h-0.5 bg-base-200 cursor-pointer appearance-none w-full  `}
             onChange={(e) => makeAdjust(e.target.name, e.target.value)}
           />
         </div>

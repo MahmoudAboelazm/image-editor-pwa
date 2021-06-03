@@ -1,9 +1,12 @@
 import { showEditImage } from "./showEditImage";
+interface getImageProps {
+  callBackFunc?: Function;
+}
 
-export const getImage = () => {
+export const getImage = ({ callBackFunc }: getImageProps) => {
   const reader = new FileReader(),
     img = new Image() as HTMLImageElement,
-    input = document.getElementById("file") as HTMLInputElement,
+    input = document.getElementById("upload-photo") as HTMLInputElement,
     canvas = document.getElementById("canvas") as HTMLCanvasElement,
     ctx = canvas.getContext("2d");
 
@@ -19,6 +22,9 @@ export const getImage = () => {
 
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       showEditImage(canvas.toDataURL("image/jpeg", 1.0));
+      if (callBackFunc) {
+        return callBackFunc(true);
+      }
     };
   };
 };
