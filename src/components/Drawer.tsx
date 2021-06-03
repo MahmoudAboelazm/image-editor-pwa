@@ -81,9 +81,9 @@ const Drawer = () => {
     return setTheme(themes[index + 1] || themes[0]);
   };
   return (
-    <aside className="lg:h-full  lg:relative lg:w-auto w-full  absolute bottom-0">
+    <aside className="lg:h-full  lg:relative lg:w-auto w-full  absolute bottom-0 z-40">
       {editorName && (
-        <div className="layer absolute w-full h-full z-10 bg-base-300 opacity-60"></div>
+        <div className="layer absolute w-full h-full z-50 bg-base-300 opacity-60"></div>
       )}
 
       <div className="bg-base-100 h-full relative ">
